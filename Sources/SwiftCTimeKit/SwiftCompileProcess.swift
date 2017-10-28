@@ -37,7 +37,7 @@ struct SwiftCompileProcess {
         let process = Process()
         process.launchPath = "/usr/bin/swift"
         process.currentDirectoryPath = path.parent().absolute().string
-        process.arguments = ["-Xfrontend", "-debug-time-function-bodies", path.lastComponent]
+        process.arguments = ["-continue-building-after-errors", "-Xfrontend", "-debug-time-function-bodies", path.lastComponent]
         
         let pipe = Pipe()
         process.standardOutput = pipe

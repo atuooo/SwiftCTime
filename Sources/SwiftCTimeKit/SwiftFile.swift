@@ -11,10 +11,12 @@ import PathKit
 public struct SwiftFile {
     let path: Path
     let shouldSort: Bool
+    let shouldShowFucLoc: Bool
     
-    init(path: Path, shouldSort: Bool) {
+    init(path: Path, shouldSort: Bool, shouldShowFucLoc: Bool) {
         self.path = path
         self.shouldSort = shouldSort
+        self.shouldShowFucLoc = shouldShowFucLoc
     }
     
     public func run() {
@@ -26,7 +28,9 @@ public struct SwiftFile {
         }
         
         print("\n============== \(path.lastComponent) ==============")
-        funcResults.forEach { print($0.colorfulDescription) }
+        let funcInfo = funcResults.map { $0.getConsoleOutput(showFuncLoc: shouldShowFucLoc) }
+                                    .joined(separator: "\n\n")
+        print(funcInfo)
         
         if !result.errInfo.isEmpty {
             print("\n--- error: ".red)

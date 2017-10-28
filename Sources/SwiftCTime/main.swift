@@ -25,6 +25,9 @@ cli.addOption(filePathOption)
 let shouldSortOption = BoolOption(shortFlag: "s", longFlag: "sort", helpMessage: "Sort fuction by compile time in descending order.")
 cli.addOption(shouldSortOption)
 
+let showFuncLocationOption = BoolOption(shortFlag: "l", longFlag: "location", helpMessage: "Show location of function in file")
+cli.addOption(showFuncLocationOption)
+
 let versionOption = BoolOption(shortFlag: "v", longFlag: "version", helpMessage: "Print version.")
 cli.addOption(versionOption)
 
@@ -73,8 +76,9 @@ if !cli.unparsedArguments.isEmpty {
 }
 
 let shouldSort = shouldSortOption.value
+let shouldShowFuncLoc = showFuncLocationOption.value
 
-let swiftcTime = SwiftCTime(executePath: filePath, shouldSort: shouldSort, shouldShowDetail: false)
+let swiftcTime = SwiftCTime(executePath: filePath, shouldSort: shouldSort, shouldShowFuncLoc: shouldShowFuncLoc)
 swiftcTime.runAndPrint()
 
 
